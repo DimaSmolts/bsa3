@@ -8,6 +8,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
+using Microsoft.AspNetCore.Http;
 
 namespace bsa3
 {
@@ -34,7 +35,13 @@ namespace bsa3
                 app.UseDeveloperExceptionPage();
             }
 
+            Parking myPark = Parking.Instance;
             app.UseMvc();
+
+            app.Run(async (context)=>
+            {
+                await context.Response.WriteAsync("error adress");
+            });
         }
     }
 }

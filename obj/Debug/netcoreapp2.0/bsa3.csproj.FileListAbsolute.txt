@@ -1,0 +1,11 @@
+D:\bsa3\bin\Debug\netcoreapp2.0\bsa3.deps.json
+D:\bsa3\bin\Debug\netcoreapp2.0\bsa3.runtimeconfig.json
+D:\bsa3\bin\Debug\netcoreapp2.0\bsa3.runtimeconfig.dev.json
+D:\bsa3\bin\Debug\netcoreapp2.0\bsa3.dll
+D:\bsa3\bin\Debug\netcoreapp2.0\bsa3.pdb
+D:\bsa3\obj\Debug\netcoreapp2.0\bsa3.csprojAssemblyReference.cache
+D:\bsa3\obj\Debug\netcoreapp2.0\bsa3.csproj.CoreCompileInputs.cache
+D:\bsa3\obj\Debug\netcoreapp2.0\bsa3.AssemblyInfoInputs.cache
+D:\bsa3\obj\Debug\netcoreapp2.0\bsa3.AssemblyInfo.cs
+D:\bsa3\obj\Debug\netcoreapp2.0\bsa3.dll
+D:\bsa3\obj\Debug\netcoreapp2.0\bsa3.pdb
