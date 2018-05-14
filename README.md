@@ -1,4 +1,4 @@
-# bsa3
+# BSA3
 ## Binary Studio Academy 2018 2.3
 
 
