@@ -4,13 +4,13 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 
-namespace bsa3.Controllers
+namespace bsa3
 {
     [Route("api/[controller]")]
     public class ParkingController : Controller
     {
 
-        // GET api/parking/{id}        
+        // GET api/parking/money        
         [HttpGet("money")]
         public string GetMoney()
         {
@@ -18,19 +18,17 @@ namespace bsa3.Controllers
         }
 
         // GET api/parking/free      
-        //[Route("api/[controller]/free")]  
         [HttpGet("free")]        
         public string GetFreePlaces()
         {
-            return $"free places ";
+            return $"free places x out of {Settings.ParkingSpace} ";
         }
 
-        // GET api/parking/busy
-        //[Route("api/[controller]/busy")]  
+        // GET api/parking/busy  
         [HttpGet("busy")]        
         public string GetBusyPlaces()
         {
-            return $"busy places";
+            return $"busy places x out of {Settings.ParkingSpace}";
         }
     }    
 }

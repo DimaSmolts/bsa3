@@ -4,7 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 
-namespace bsa3.Controllers
+namespace bsa3
 {
     [Route("api/[controller]")]
     public class TransactionsController : Controller
@@ -33,7 +33,7 @@ namespace bsa3.Controllers
         [HttpGet("LastMinute/{id}")]
         public string GetTransactionsLastMinute(int id)
         {
-            return "GetTransactionsLastMinute {id} (2)";
+            return $"GetTransactionsLastMinute {id} (2)";
         }
 
     }
