@@ -10,11 +10,8 @@ Binary Studio Academy 2018 2.3
 Функція			|	Запит	|	Адреса
 ------------------------|---------------|--------------------
 Список всіх машин	|	GET	|	api/car
-
 Деталі однієї машини	|	GET	|	api/car/{id}
-
 Видалити машину		|	DELETE	|	api/car/{id}
-
 Додати машину		|	POST	|	api/car
 
 
@@ -38,11 +35,8 @@ Binary Studio Academy 2018 2.3
 Функція			|	Запит	|	Адреса
 ------------------------|---------------|--------------------
 К-сть вільних місць	|	GET	|	api/parking/free
-
 К-сть зайнятих місць	|	GET	|	api/parking/busy
-
 Прибуток		|	GET	|	api/parking/money
-
 
 
 
@@ -52,11 +46,8 @@ Binary Studio Academy 2018 2.3
 Функція			|	Запит	|	Адреса
 ------------------------|---------------|--------------------
 Виведення лог файлу	|	GET	|	api/transactions
-
 Транзакції 1хв усі	|	GET	|	api/transactions/lastminute
-
 Транзакції 1хв {id}	|	GET	|	api/transactions/lastminute/{id}
-
 Поповнити баланс	|	PUT	|	api/transactions
 
 
