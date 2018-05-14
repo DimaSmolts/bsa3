@@ -168,17 +168,19 @@ namespace bsa3
 				double temp = DateTime.Now.Subtract(t.TransactionStamp).TotalSeconds;
 				if (temp <= 60)
 				{
-					if(t.CarID == parkingLot[id].CarID)
-					{
+
 						tempList.Add(t);
 						sum += t.WithDrawMoney;
-					}
+					
 				}								
 			}
 			transactionLog = tempList;
 			List<string> x = new List<string>();
 			foreach(Transaction t in tempList)
-				x.Add(t.ToString());
+				if(t.CarID == parkingLot[id].CarID)
+					{
+						x.Add(t.ToString());
+					}
 			return x;
 		}
 
