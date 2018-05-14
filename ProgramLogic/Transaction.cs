@@ -3,15 +3,17 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Runtime.Serialization;
 
 namespace bsa3
 {
-	class Transaction
+public class Transaction
 	{
 		private DateTime transactionStamp ;
 		private Guid carID;
 		private double withdrawnMoney;
 
+		//public Transaction(){}
 		public Transaction(Car car)
 		{
 			transactionStamp = DateTime.Now;
@@ -26,6 +28,10 @@ namespace bsa3
 		//	Console.WriteLine("{0}\t{1}\t{2}", carID, transactionStamp,  withdrawnMoney);
 		//}
 
+		public override string ToString()
+		{
+			return string.Format("{0}   {1}   {2}", carID, transactionStamp,  withdrawnMoney);			
+		} 
 		public DateTime TransactionStamp
 		{
 			get { return transactionStamp; }

@@ -12,29 +12,48 @@ namespace bsa3
 
         // PUT api/Transactions/5
         [HttpPut("{id}")]
-        public void Put(int id, [FromBody]string value)
+        public void Put([FromBody]T t)
         {
+            Parking myPark = Parking.Instance;
+            Console.WriteLine($"{t.id}  {t.sum}");
+            myPark.Recharge(t.id,t.sum);
         }
 		// GET api/Transactions        
         [HttpGet]
-        public string GetTransactions()
+        public List<string> GetTransactions()
         {
-            return "GetTransactions";
+            Parking myPark = Parking.Instance;
+            return myPark.LogFileInPut();
         }
 
 		// GET api/Transactions/LastMinute        
         [HttpGet("LastMinute")]
-        public string GetTransactionsMinute()
+        public List<string> GetTransactionsMinute()
         {
-            return "GetTransactionsLastMinute (1)";
+           Parking myPark = Parking.Instance;
+           
+           return myPark.DisplayTransactions();
+
+
+            //return "GetTransactionsLastMinute (1)";
         }
 
 		// GET api/Transactions/LastMinute/{id}        
         [HttpGet("LastMinute/{id}")]
-        public string GetTransactionsLastMinute(int id)
+        public List<string> GetTransactionsLastMinute(int id)
         {
-            return $"GetTransactionsLastMinute {id} (2)";
+            Parking myPark = Parking.Instance;            
+             return myPark.DisplayOneTransactions(id);
+            //return $"GetTransactionsLastMinute {id} (2)";
         }
+
+    }
+
+
+    public class T
+    {
+        public int id{get;set;}
+        public double sum{get;set;}
 
     }
     

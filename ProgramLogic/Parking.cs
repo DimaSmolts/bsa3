@@ -4,6 +4,8 @@ using System.Linq;
 using System.Text;
 using System.Threading;
 using System.IO;
+using System.Runtime.Serialization.Json;
+using System.Runtime.Serialization;
 
 namespace bsa3
 {
@@ -15,7 +17,7 @@ namespace bsa3
 
 		public List<Car> parkingLot{get;set;}
 		private List<Transaction> transactionLog;
-		private double balance;
+		public double balance {get;set;}
 
 		private Timer PayTime;
 		private Timer ClearTime;
@@ -30,23 +32,17 @@ namespace bsa3
 			TimerCallback tc1 = new TimerCallback(Pay);
 			PayTime = new Timer(tc1, 0, 0, 3000);
 
-			//TimerCallback tc2 = new TimerCallback(LogFileOutPut);
-			//ClearTime = new Timer(tc2, 0, 0, 60000);
+			TimerCallback tc2 = new TimerCallback(LogFileOutPut);
+			ClearTime = new Timer(tc2, 0, 0, 60000);
 
 			locker = new object();
 
 		}
 
-	//	public void AddCar(int carType,double balance)
-	//	{
-	//		if(carType == 1 || carType == 2 || carType == 3 || carType == 4 )
-//						parkingLot.Add(new Car(carType,balance));
-	//	}
 
 		public void AddCar(Car t)
 		{
-			//if(carType == 1 || carType == 2 || carType == 3 || carType == 4 )
-						parkingLot.Add(t);
+			parkingLot.Add(t);
 		}
 
 
@@ -64,39 +60,35 @@ namespace bsa3
 				parkingLot[index].Balance += sum;
 		}
 
-		public void DisplayCars()
-		{
-			if (parkingLot.Count > 0)
-			{
-				Console.WriteLine();
-				Console.WriteLine("{0,3}\t{1,36}\t{2,16}\t{3,8}\t{4,8}",
-					"#",
-					"ID",
-					"Type",
-					"Balance",
-					"Debt");
-				Console.WriteLine();
-				for (int i = 0; i < parkingLot.Count; i++)				
-					Console.WriteLine("{0,3}\t{1}", i, parkingLot[i].ToString());
-			}
-			else
-			{
-				Console.WriteLine("Parking Lot is empty!");
-			}
-		}
-
-		public void DisplayBalance()
-		{
-			double totalDebt = 0;
-			foreach (Car c in parkingLot)
-				totalDebt += c.debt;
-			Console.WriteLine("\nBalance of Parking Lot is {0} $\nTotal debt in {1} $", balance,totalDebt);
-		}
-
-		//public void DisplayFreePlaces()
-		//{
-		//	Console.WriteLine("\nFree places: {0}",Settings.ParkingSpace-parkingLot.Count);
+		//public void DisplayCars()
+		//	{
+		///	if (parkingLot.Count > 0)
+		//	{
+		//		Console.WriteLine();
+		//		Console.WriteLine("{0,3}\t{1,36}\t{2,16}\t{3,8}\t{4,8}",
+		//			"#",
+		//			"ID",
+		//			"Type",
+		//			"Balance",
+		//			"Debt");
+		//		Console.WriteLine();
+		//		for (int i = 0; i < parkingLot.Count; i++)				
+		//			Console.WriteLine("{0,3}\t{1}", i, parkingLot[i].ToString());
+		//	}
+		//	else
+		//	{
+		///		Console.WriteLine("Parking Lot is empty!");
+		//	}
 		//}
+
+		//public void DisplayBalance()
+		//{
+		//	double totalDebt = 0;
+		//	foreach (Car c in parkingLot)
+		//		totalDebt += c.debt;
+		//	Console.WriteLine("\nBalance of Parking Lot is {0} $\nTotal debt in {1} $", balance,totalDebt);
+		//}
+
 		public void Pay(object obj)
 		{
 			lock (locker)
@@ -121,25 +113,25 @@ namespace bsa3
 		{
 			 List<Transaction> tempList = new List<Transaction>();
 
-
-			foreach (Transaction t in transactionLog)
-			{
-				double temp = DateTime.Now.Subtract(t.TransactionStamp).TotalSeconds;
-				if (temp < 60)
-					tempList.Add(t);
-			}
-			
-			transactionLog = tempList;
-
 			lock (locker)
 			{
+
+				foreach (Transaction t in transactionLog)
+				{
+					double temp = DateTime.Now.Subtract(t.TransactionStamp).TotalSeconds;
+					if (temp < 60)
+						tempList.Add(t);
+				}
+			
+				transactionLog = tempList;
+
 				FileStream file1 = new FileStream(Settings.logFileName, FileMode.Append);
 				StreamWriter sw = new StreamWriter(file1);
 
 				sw.WriteLine();
 				foreach (Transaction t in tempList)
 				{
-					sw.WriteLine(string.Format("{0}\t{1}\t{2}\n", t.CarID, t.TransactionStamp, t.WithDrawMoney));
+					sw.WriteLine(string.Format("{0}   {1}   {2}\n", t.CarID, t.TransactionStamp, t.WithDrawMoney));
 				}
 				sw.WriteLine();
 				sw.WriteLine(DateTime.Now.ToString());
@@ -147,7 +139,7 @@ namespace bsa3
 			}
 		}
 
-		public List<Transaction> DisplayTransactions()
+		public List<string> DisplayTransactions()
 		{
 			double sum=0;
 			List<Transaction> tempList = new List<Transaction>();
@@ -161,20 +153,64 @@ namespace bsa3
 				}								
 			}
 			transactionLog = tempList;
-			return tempList;
+			List<string> x = new List<string>();
+			foreach(Transaction t in tempList)
+				x.Add(t.ToString());
+			return x;
 		}
+
+		public List<string> DisplayOneTransactions(int id)
+		{
+			double sum=0;
+			List<Transaction> tempList = new List<Transaction>();
+			foreach (Transaction t in transactionLog)
+			{
+				double temp = DateTime.Now.Subtract(t.TransactionStamp).TotalSeconds;
+				if (temp <= 60)
+				{
+					if(t.CarID == parkingLot[id].CarID)
+					{
+						tempList.Add(t);
+						sum += t.WithDrawMoney;
+					}
+				}								
+			}
+			transactionLog = tempList;
+			List<string> x = new List<string>();
+			foreach(Transaction t in tempList)
+				x.Add(t.ToString());
+			return x;
+		}
+
+
 		public List<string> LogFileInPut()
 		{
 			lock (locker)
 			{
 				List<string> tempList = new List<string>();
 				FileStream file1 = new FileStream(Settings.logFileName, FileMode.Open);
-				StreamReader sr = new StreamReader(file1);
+				
+				Guid g;
+				DateTime t;
+				int x;
+				
+				using (StreamReader sr = new StreamReader(file1))
+				{
+					while(true)
+					{
+						string temp = sr.ReadLine();
+						if(temp==null)
+						{
+							break;
+						}
+						if(temp!="")
+							tempList.Add(temp);
+					}
+				}
 
-				tempList.Add(sr.ReadLine());
 
 				//Console.Write(sr.ReadToEnd());
-				sr.Close();
+				//sr.Close();
 				return tempList;
 			}
 		}

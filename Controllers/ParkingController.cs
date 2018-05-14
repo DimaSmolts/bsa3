@@ -12,23 +12,26 @@ namespace bsa3
 
         // GET api/parking/money        
         [HttpGet("money")]
-        public string GetMoney()
+        public double GetMoney()
         {
-            return "total money";
+            Parking myPark = Parking.Instance;
+            return myPark.balance;
         }
 
         // GET api/parking/free      
         [HttpGet("free")]        
-        public string GetFreePlaces()
+        public int GetFreePlaces()
         {
-            return $"free places x out of {Settings.ParkingSpace} ";
+            Parking myPark = Parking.Instance;            
+            return (Settings.ParkingSpace-myPark.parkingLot.Count);
         }
 
         // GET api/parking/busy  
         [HttpGet("busy")]        
-        public string GetBusyPlaces()
+        public int GetBusyPlaces()
         {
-            return $"busy places x out of {Settings.ParkingSpace}";
+            Parking myPark = Parking.Instance;            
+            return (myPark.parkingLot.Count);
         }
     }    
 }
