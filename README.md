@@ -1,10 +1,10 @@
-# bsa3
-Binary Studio Academy 2018 2.3
+### bsa3
+##Binary Studio Academy 2018 2.3
 
 
 
 
-*****************    Car   *******************
+#Car   
 
 
 Функція			|	Запит	|	Адреса
@@ -17,19 +17,19 @@ Binary Studio Academy 2018 2.3
 
 Приклад JSON об'єкту
 
+```
 {
-
 	"type":1
 	
-	"balance":1000
-	
+	"balance":1000	
 }
+```
 
 
 
 
 
-***************    Parking   *****************
+#Parking
 
 
 Функція			|	Запит	|	Адреса
@@ -40,7 +40,7 @@ Binary Studio Academy 2018 2.3
 
 
 
-************    Transaction   ****************
+#Transaction
 
 
 Функція			|	Запит	|	Адреса
@@ -53,12 +53,10 @@ Binary Studio Academy 2018 2.3
 
 Приклад JSON об'єкту
 
+```
 {
-
 	"id":1
 	
-	"sum":1000
-	
+	"sum":1000	
 }
-
-
+```
