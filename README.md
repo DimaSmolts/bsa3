@@ -2,7 +2,6 @@
 Binary Studio Academy 2018 2.3
 
 *****************    Car   *******************
-**********************************************
 
 Список всіх машин	GET	api/car
 
@@ -13,6 +12,7 @@ Binary Studio Academy 2018 2.3
 Додати машину		POST	api/car
 
 Приклад JSON об'єкту
+
 {
 
 	"type":1
@@ -22,8 +22,10 @@ Binary Studio Academy 2018 2.3
 }
 
 
+
+
 ***************    Parking   *****************
-**********************************************
+
 К-сть вільних місць	GET	api/parking/free
 
 К-сть зайнятих місць	GET	api/parking/busy
@@ -31,8 +33,10 @@ Binary Studio Academy 2018 2.3
 Прибуток		GET	api/parking/money
 
 
+
+
 ************    Transaction   ****************
-**********************************************
+
 Виведення лог файлу	GET	api/transactions
 
 Транзакції 1хв усі	GET	api/transactions/lastminute
